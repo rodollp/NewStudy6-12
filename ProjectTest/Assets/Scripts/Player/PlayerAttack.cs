@@ -30,7 +30,7 @@ public class PlayerAttack : MonoBehaviour
         {
             if (Mouse.current.leftButton.wasPressedThisFrame)
             {
-                CommounAttack();
+                CommonAttack();
 
             }
         }
@@ -40,7 +40,7 @@ public class PlayerAttack : MonoBehaviour
 
    
 
-    private void CommounAttack()
+    private void CommonAttack()
     {
         
         anim.SetTrigger("Attack");
