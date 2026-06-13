@@ -1,0 +1,28 @@
+1순위: 코드 정리
+
+MonsterStatus, MonsterAI, StageManager, SpawnManager, BattleManager 역할 분리 확인
+이벤트 연결 정리
+죽은 몬스터 처리 방식 통일
+public 줄이고 [SerializeField] private로 정리
+이름 오타 수정
+예: Creture → Creature, CommounAttack → CommonAttack
+
+2순위: 포트폴리오용 구조 고정
+
+스테이지 흐름
+몬스터 스폰
+보상 지급
+인벤토리 사용
+타겟 탐색
+
+이 흐름이 안정적으로 돌아가게 만들기.
+
+3순위: 새 기능 추가
+그 다음에 추가할 만한 건:
+
+아이템 드랍
+UI
+체력바
+스킬 쿨타임
+A* 길찾기 표시
+보스 패턴
