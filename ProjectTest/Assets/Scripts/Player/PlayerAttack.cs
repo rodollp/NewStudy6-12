@@ -9,7 +9,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private float attackForce = 5f;
     [Header("구의 반지름")]
     [SerializeField] private float radius = 0.5f;
-
+    [SerializeField] Animator anim;
 
     PlayerStatus playerStatus;
 
@@ -17,7 +17,11 @@ public class PlayerAttack : MonoBehaviour
     {
         playerStatus = GetComponent<PlayerStatus>();
     }
-
+    private void Start()
+    {
+        if (anim == null)
+            anim = GetComponentInChildren<Animator>();
+    }
     private void Update()
     {
         
@@ -38,6 +42,8 @@ public class PlayerAttack : MonoBehaviour
 
     private void CommounAttack()
     {
+        
+        anim.SetTrigger("Attack");
         //플레이어 위치에서 반지름 radius 만큼의 구로 attackDistance만큼의 거리상 플레이어 정면에 있는것이 없으면 리턴
         if (!Physics.SphereCast(transform.position,radius,transform.forward,out RaycastHit hit,attackDistance))
             return;
@@ -47,7 +53,6 @@ public class PlayerAttack : MonoBehaviour
 
         if (monster == null)
             return;
-
         monster.TakeDamage(playerStatus.Atk);
 
         Rigidbody rb = hit.transform.GetComponent<Rigidbody>();
