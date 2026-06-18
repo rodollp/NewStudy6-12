@@ -1,114 +1,87 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
+using Assets.Scripts;
+
 public class StageManager : MonoBehaviour
 {
-    [Header("스폰 매니저 연결")]
-    public SpawnManager spawnManager;
+    [Header("스테이지 데이터")]
+    [SerializeField] private List<StageData> stages;
+
+    [Header("매니저 연결")]
+    [SerializeField] private SpawnManager spawnManager;
+    [SerializeField] private MonsterTracker monsterTracker;
+    [SerializeField] private PlayerRespawner playerRespawner;
 
     [Header("현재 스테이지")]
-    public int stageIndex = 0;
+    [SerializeField] private int stageIndex = 0;
 
-    [Header("시작 위치")]
-    [SerializeField] Transform startPoint;
-    [SerializeField] Transform player;
+    private bool canNextStage = false;
 
-    [Header("현재 살아있는 몬스터")]
-    public List<Monster> aliveMonsters = new();
+    public int StageIndex => stageIndex;
 
-
-    bool canNextStage = false;
-    void Start()
+    private void Start()
     {
         StartStage(stageIndex);
     }
 
     private void Update()
     {
-        if (canNextStage == false) return;
+        if (!canNextStage) return;
+
         if (Keyboard.current != null && Keyboard.current.nKey.wasPressedThisFrame)
         {
-            canNextStage = false;
-            Debug.Log("스테이지 시작!");
-            StartStage(stageIndex + 1);
-            
+            NextStage();
         }
     }
 
-    
     public void StartStage(int index)
     {
-        canNextStage = false ;
+        if (index < 0 || index >= stages.Count)
+        {
+            Debug.LogError($"존재하지 않는 Stage : {index}");
+            return;
+        }
 
         stageIndex = index;
+        canNextStage = false;
 
-        aliveMonsters.Clear();
+        monsterTracker.Clear();
+        playerRespawner.Respawn();
 
-        Rigidbody rb = player.GetComponent<Rigidbody>();
+        StageData data = stages[stageIndex];
+        spawnManager.Spawn(data);
 
-        
-        rb.linearVelocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
-
-        rb.position = startPoint.position;
-        rb.rotation = startPoint.rotation;
-
-        PlayerStatus p = player.GetComponent<PlayerStatus>();
-        
-        p.FullHeal();
-
-        // 스테이지 시작 시 스폰 요청
-        spawnManager.Spawn(stageIndex);
+        Debug.Log($"{stageIndex} 스테이지 시작");
     }
 
-
-    public List<Monster> GetAliveMonsters()
+    public void ClearStage()
     {
-        aliveMonsters.RemoveAll(m => m == null);
-        return aliveMonsters;
-    }
-    public void AddMonster(Monster monster)
-    {
-        aliveMonsters.Add(monster);
-    }
-
-    public Monster ShortMagnitude(Vector3 position)
-    {
-        Monster shortmag = null;
-        float shortmagDist = float.MaxValue;
-
-        foreach (Monster monster in aliveMonsters)
+        if (IsLastStage())
         {
-            if (monster == null) continue;
-
-            float dist = (monster.transform.position - position).sqrMagnitude;
-            if (dist < shortmagDist)
-            {
-                shortmagDist = dist;
-                shortmag = monster;
-            }
+            GameClear();
+            return;
         }
-        return shortmag;
 
+        canNextStage = true;
+
+        Debug.Log($"스테이지 클리어! 다음 스테이지 : {stageIndex + 1}");
+        Debug.Log("N키를 누르면 다음 스테이지로 이동");
     }
-    public void OnMonsterDead(Monster monster)
+
+    private void NextStage()
     {
-        if (monster == null) return;
-        if (monster.IsDead == false) return;
+        canNextStage = false;
+        StartStage(stageIndex + 1);
+    }
 
-        aliveMonsters.Remove(monster);
+    private bool IsLastStage()
+    {
+        return stageIndex >= stages.Count - 1;
+    }
 
-        if (aliveMonsters.Count <= 0)
-        {
-            if (stageIndex >= spawnManager.stages.Count - 1)
-            {
-                Debug.Log("게임 클리어");
-                return;
-            }
-
-            Debug.Log($"스테이지 클리어! 다음 스테이지 : {stageIndex + 1}");
-            Debug.Log($"다음 스테이지로 넘어가시겠습니까? (N키를 눌러서 스테이지 이동) ");
-            canNextStage = true;
-        }
+    private void GameClear()
+    {
+        Debug.Log("게임 클리어!");
     }
 }

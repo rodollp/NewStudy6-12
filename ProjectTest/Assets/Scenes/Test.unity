@@ -477,6 +477,53 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!1 &362562734
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 362562735}
+  - component: {fileID: 362562736}
+  m_Layer: 0
+  m_Name: MonsterEventManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &362562735
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 362562734}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1186399556}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &362562736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 362562734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 237a56cffd12c6c4e94bc573fdc38142, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monsterTracker: {fileID: 482819150}
+  battleManager: {fileID: 852341857}
+  stageManager: {fileID: 1843839191}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -598,6 +645,81 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 1
+--- !u!1 &482819148
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 482819149}
+  - component: {fileID: 482819150}
+  m_Layer: 0
+  m_Name: MonsterTracker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &482819149
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 482819148}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1186399556}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &482819150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 482819148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77a0e20ffc4bff74aafb07fc2aab88cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &535688434
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 535688435}
+  m_Layer: 0
+  m_Name: StartPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &535688435
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 535688434}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &561791381
 GameObject:
   m_ObjectHideFlags: 0
@@ -629,40 +751,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sector: {fileID: 980818479}
   monstersParent: {fileID: 2045692262}
-  stageManager: {fileID: 1843839191}
-  stages:
-  - monsters:
-    - {fileID: 2190410313456194085, guid: 8e6ad55a7de1ed04cb98d46ec3beb9b3, type: 3}
-    minSpawnCount: 1
-    maxSpawnCount: 3
-    isBossStage: 0
-    boss: {fileID: 0}
-  - monsters:
-    - {fileID: 2190410313456194085, guid: 266660054618c194e99c89357954c86c, type: 3}
-    minSpawnCount: 1
-    maxSpawnCount: 3
-    isBossStage: 0
-    boss: {fileID: 0}
-  - monsters:
-    - {fileID: 2190410313456194085, guid: a13d5b89af408524aa172ce1e4b28353, type: 3}
-    minSpawnCount: 1
-    maxSpawnCount: 3
-    isBossStage: 0
-    boss: {fileID: 0}
-  - monsters:
-    - {fileID: 2190410313456194085, guid: 8e6ad55a7de1ed04cb98d46ec3beb9b3, type: 3}
-    - {fileID: 2190410313456194085, guid: 266660054618c194e99c89357954c86c, type: 3}
-    - {fileID: 2190410313456194085, guid: a13d5b89af408524aa172ce1e4b28353, type: 3}
-    minSpawnCount: 5
-    maxSpawnCount: 7
-    isBossStage: 0
-    boss: {fileID: 0}
-  - monsters: []
-    minSpawnCount: 1
-    maxSpawnCount: 1
-    isBossStage: 1
-    boss: {fileID: 2190410313456194085, guid: e89eb724cdc9f894ab2147906b114bf3, type: 3}
-  battleManager: {fileID: 852341857}
+  monsterEventManager: {fileID: 362562736}
 --- !u!4 &561791383
 Transform:
   m_ObjectHideFlags: 0
@@ -951,7 +1040,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rooms: []
   player: {fileID: 180062085}
-  stageManager: {fileID: 1843839191}
+  monster: {fileID: 482819150}
   maxIterations: 100
 --- !u!4 &867638814
 Transform:
@@ -1073,6 +1162,52 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &935716280
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 935716282}
+  - component: {fileID: 935716281}
+  m_Layer: 0
+  m_Name: PlayerRespawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &935716281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 935716280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce77350b33cffaa48a600bd0f5ebe9f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 180062085}
+  startPoint: {fileID: 535688435}
+--- !u!4 &935716282
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 935716280}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1186399556}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &980818479 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8565587439495622338, guid: d368d39205b27f24fac5612d3b021e18, type: 3}
@@ -1436,6 +1571,9 @@ Transform:
   - {fileID: 1843839192}
   - {fileID: 852341858}
   - {fileID: 867638814}
+  - {fileID: 362562735}
+  - {fileID: 482819149}
+  - {fileID: 935716282}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1843839190
@@ -1467,11 +1605,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498a9a3c26966964298690fb2d5ffacf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stages:
+  - monsters:
+    - {fileID: 2190410313456194085, guid: 8e6ad55a7de1ed04cb98d46ec3beb9b3, type: 3}
+    - {fileID: 2190410313456194085, guid: 266660054618c194e99c89357954c86c, type: 3}
+    - {fileID: 2190410313456194085, guid: a13d5b89af408524aa172ce1e4b28353, type: 3}
+    minSpawnCount: 3
+    maxSpawnCount: 5
+    isBossStage: 0
+    boss: {fileID: 0}
+  - monsters:
+    - {fileID: 2190410313456194085, guid: 8e6ad55a7de1ed04cb98d46ec3beb9b3, type: 3}
+    - {fileID: 2190410313456194085, guid: 266660054618c194e99c89357954c86c, type: 3}
+    - {fileID: 2190410313456194085, guid: a13d5b89af408524aa172ce1e4b28353, type: 3}
+    minSpawnCount: 3
+    maxSpawnCount: 5
+    isBossStage: 1
+    boss: {fileID: 2190410313456194085, guid: e89eb724cdc9f894ab2147906b114bf3, type: 3}
   spawnManager: {fileID: 561791382}
+  monsterTracker: {fileID: 482819150}
+  playerRespawner: {fileID: 935716281}
   stageIndex: 0
-  startPoint: {fileID: 1843839192}
-  player: {fileID: 180062085}
-  aliveMonsters: []
 --- !u!4 &1843839192
 Transform:
   m_ObjectHideFlags: 0
@@ -1654,3 +1808,4 @@ SceneRoots:
   - {fileID: 921314007}
   - {fileID: 217202063}
   - {fileID: 1016736652}
+  - {fileID: 535688435}

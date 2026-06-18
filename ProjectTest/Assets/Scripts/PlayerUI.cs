@@ -13,14 +13,14 @@ public class PlayerUI : MonoBehaviour
 
     private void Update()
     {
-        Monster target = stageManager.ShortMagnitude(playerPosition.position);
+        
 
-        if (target == null) return;
+        
 
         hpText.text = $"HP : {player.CurrentHp}/ {player.MaxHp}";
         levelText.text = $"Level:{player.Level}";
         expText.text = $"Exp: {player.Exp}/{player.ExpToNext}";
-        monsterHpText.text = $"MonsterHp :{target.CurrentHp}/{target.MaxHp}";
+        
         
 
     }

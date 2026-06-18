@@ -14,7 +14,7 @@ public class PathFinder : MonoBehaviour
     // 플레이어 위치
     [SerializeField] Transform player;
     //스테이지 매니져로 살아있는 몬스터 추적
-    [SerializeField] StageManager stageManager;
+    [SerializeField]  MonsterTracker monster;
 
     // playerRoom에서 targetRoom까지 이어지는 경로 저장 리스트
     List<RoomNode> path = new();
@@ -46,7 +46,7 @@ public class PathFinder : MonoBehaviour
         playerRoom = FindClosestRoom(player.position);
 
         // 현재 살아있는 몬스터 중 가장 가까운 몬스터 찾기
-        Monster target = stageManager.ShortMagnitude(player.position);
+        Monster target = monster.GetClosestMonster(player.position);
 
         if (target == null)
         {
