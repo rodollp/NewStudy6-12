@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Windows;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] Transform cameraTransform;
     [SerializeField] Animator anim;
 
+
+    [SerializeField] private PlayerInputHandler input;
     private Rigidbody rb;
 
     private Vector2 inputVec;
@@ -24,31 +27,16 @@ public class PlayerMove : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-
-        if (anim == null)
-            anim = GetComponentInChildren<Animator>();
+        if (input == null ) input =GetComponent<PlayerInputHandler>();
+        if (anim == null) anim = GetComponentInChildren<Animator>();
     }
 
     private void Update()
     {
-        inputVec = Vector2.zero;
+        inputVec = input.MoveInput;
+        isRun = input.IsRun;
 
-        if (Keyboard.current == null) return;
-
-        float h = 0;
-        float v = 0;
-
-        if (Keyboard.current.aKey.isPressed) h = -1;
-        if (Keyboard.current.dKey.isPressed) h = 1;
-        if (Keyboard.current.sKey.isPressed) v = -1;
-        if (Keyboard.current.wKey.isPressed) v = 1;
-
-        inputVec = new Vector2(h, v);
-
-        // Shift를 누르고 있으면 달리기
-        isRun = Keyboard.current.leftShiftKey.isPressed || Keyboard.current.rightShiftKey.isPressed;
-
-        if (Keyboard.current.spaceKey.wasPressedThisFrame)
+        if (input.JumpPressed)
         {
             jumpRequest = true;
         }

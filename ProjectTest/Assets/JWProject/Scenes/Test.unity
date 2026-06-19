@@ -1576,6 +1576,17 @@ Transform:
   - {fileID: 935716282}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1813385970 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6978445225003120711, guid: d9013c3eefdbbb14db870c007fe4e6ef, type: 3}
+  m_PrefabInstance: {fileID: 7534548450698859847}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2aebee20cebe96479d6cf25e27c13d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1843839190
 GameObject:
   m_ObjectHideFlags: 0
@@ -1625,6 +1636,7 @@ MonoBehaviour:
   spawnManager: {fileID: 561791382}
   monsterTracker: {fileID: 482819150}
   playerRespawner: {fileID: 935716281}
+  input: {fileID: 1813385970}
   stageIndex: 0
 --- !u!4 &1843839192
 Transform:
@@ -1837,6 +1849,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 5.4331098
       objectReference: {fileID: 0}
+    - target: {fileID: 5706601061590182995, guid: d9013c3eefdbbb14db870c007fe4e6ef, type: 3}
+      propertyPath: cameraTarget
+      value: 
+      objectReference: {fileID: 180062085}
     - target: {fileID: 5706601061590182995, guid: d9013c3eefdbbb14db870c007fe4e6ef, type: 3}
       propertyPath: cameraTransform
       value: 

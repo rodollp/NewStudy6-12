@@ -3,17 +3,23 @@ using UnityEngine.InputSystem;
 
 public class InventoryInput : MonoBehaviour
 {
+    [SerializeField] private PlayerInputHandler input;
     [SerializeField] Inventory inventory;
 
+
+    private void Awake()
+    {
+        if(input==null)input = GetComponent<PlayerInputHandler>();
+    }
     private void Update()
     {
-        if (Keyboard.current == null) return;
+        
 
-        if (Keyboard.current.hKey.wasPressedThisFrame)
+        if (input.UsePotionPressed)
         {
             inventory.UseItem(ItemType.Potion);
         }
-        if(Keyboard.current.pKey.wasPressedThisFrame)
+        if(input.UseWeaponPressed)
         {
             inventory.UseItem(ItemType.Weapon);
         }

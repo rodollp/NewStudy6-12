@@ -34,7 +34,7 @@ public class DoorOpenEvent : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (!other.CompareTag("Player"))
+        if (!other.transform.root.CompareTag("Player"))
             return;
 
         canOpen = false;

@@ -8,12 +8,17 @@ public class PlayerGetItem : MonoBehaviour
     Item[] items;
 
     [SerializeField] float pickUpRange = 3f;
+    [SerializeField] private PlayerInputHandler input;
 
+    private void Awake()
+    {
+        input = GetComponent<PlayerInputHandler>();
+    }
     private void Update()
     {
-        if (Keyboard.current == null) return;
+        
 
-        if (Keyboard.current.gKey.wasPressedThisFrame)
+        if (input.InteractPressed)
         {
             PickUp();
         }

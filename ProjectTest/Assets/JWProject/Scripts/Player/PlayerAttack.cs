@@ -10,12 +10,15 @@ public class PlayerAttack : MonoBehaviour
     [Header("구의 반지름")]
     [SerializeField] private float radius = 0.5f;
     [SerializeField] Animator anim;
+    [SerializeField] private PlayerInputHandler input;
+
 
     PlayerStatus playerStatus;
 
     private void Awake()
     {
         playerStatus = GetComponent<PlayerStatus>();
+        if (input == null) input = GetComponent<PlayerInputHandler>();
     }
     private void Start()
     {
@@ -24,28 +27,24 @@ public class PlayerAttack : MonoBehaviour
     }
     private void Update()
     {
-        
 
-        if (Mouse.current != null)
+
+        if (input.AttackPressed)
         {
-            if (Mouse.current.leftButton.wasPressedThisFrame)
-            {
-                CommonAttack();
-
-            }
+            CommonAttack();
         }
-        
+
 
     }
 
-   
+
 
     private void CommonAttack()
     {
-        
+
         anim.SetTrigger("Attack");
         //플레이어 위치에서 반지름 radius 만큼의 구로 attackDistance만큼의 거리상 플레이어 정면에 있는것이 없으면 리턴
-        if (!Physics.SphereCast(transform.position,radius,transform.forward,out RaycastHit hit,attackDistance))
+        if (!Physics.SphereCast(transform.position, radius, transform.forward, out RaycastHit hit, attackDistance))
             return;
 
         //맞았으면 이놈이 몬스터스테이터스를 가지고 있는지
@@ -86,12 +85,12 @@ public class PlayerAttack : MonoBehaviour
         // SphereCast 범위
         Gizmos.color = Color.red;
 
-        Vector3 endPos =transform.position + transform.forward * attackDistance;
+        Vector3 endPos = transform.position + transform.forward * attackDistance;
 
-        Gizmos.DrawWireSphere(transform.position,radius);
+        Gizmos.DrawWireSphere(transform.position, radius);
 
-        Gizmos.DrawWireSphere(endPos,radius);
+        Gizmos.DrawWireSphere(endPos, radius);
 
-        Gizmos.DrawLine(transform.position,endPos);
+        Gizmos.DrawLine(transform.position, endPos);
     }
 }

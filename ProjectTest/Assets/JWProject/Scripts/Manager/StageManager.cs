@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine.InputSystem;
 using Assets.Scripts;
 
 public class StageManager : MonoBehaviour
@@ -13,12 +12,21 @@ public class StageManager : MonoBehaviour
     [SerializeField] private MonsterTracker monsterTracker;
     [SerializeField] private PlayerRespawner playerRespawner;
 
+    [Header("플레이어 입력")]
+    [SerializeField] private PlayerInputHandler input;
+
     [Header("현재 스테이지")]
     [SerializeField] private int stageIndex = 0;
 
     private bool canNextStage = false;
 
     public int StageIndex => stageIndex;
+
+    private void Awake()
+    {
+        if (input == null)
+            input = FindAnyObjectByType<PlayerInputHandler>();
+    }
 
     private void Start()
     {
@@ -28,8 +36,9 @@ public class StageManager : MonoBehaviour
     private void Update()
     {
         if (!canNextStage) return;
+        if (input == null) return;
 
-        if (Keyboard.current != null && Keyboard.current.nKey.wasPressedThisFrame)
+        if (input.NextStagePressed)
         {
             NextStage();
         }

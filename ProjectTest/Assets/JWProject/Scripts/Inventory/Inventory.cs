@@ -54,7 +54,7 @@ public class Inventory : MonoBehaviour
 
     public bool CanBuy(int price)
     {
-        return player.Money > price;
+        return player.Money >= price;
     }
     
     public void UseItem(ItemType type)
