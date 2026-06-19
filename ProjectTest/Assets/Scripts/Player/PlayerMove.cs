@@ -5,6 +5,8 @@ public class PlayerMove : MonoBehaviour
 {
     [SerializeField] private float moveSpeed;
     [SerializeField] private float runMultiplier = 2f;
+    [SerializeField] private float acceleration = 12f;
+    [SerializeField] private float rotateSpeed = 10f;
     [SerializeField] private float jumpForce;
     [SerializeField] private float checkLine = 0.1f;
 
@@ -19,7 +21,7 @@ public class PlayerMove : MonoBehaviour
     private bool isGround;
     private bool isRun;
 
-    private void Start()
+    private void Awake()
     {
         rb = GetComponent<Rigidbody>();
 
@@ -83,26 +85,14 @@ public class PlayerMove : MonoBehaviour
 
         float currentSpeed = isRun ? moveSpeed * runMultiplier : moveSpeed;
 
-        Vector3 targetVelocity = new Vector3(
-            dir.x * currentSpeed,
-            rb.linearVelocity.y,
-            dir.z * currentSpeed
-        );
+        Vector3 targetVelocity = new Vector3(dir.x * currentSpeed,rb.linearVelocity.y,dir.z * currentSpeed);
 
-        rb.linearVelocity = Vector3.Lerp(
-            rb.linearVelocity,
-            targetVelocity,
-            12f * Time.fixedDeltaTime
-        );
+        rb.linearVelocity = Vector3.Lerp(rb.linearVelocity,targetVelocity,acceleration* Time.fixedDeltaTime);
 
         if (dir.magnitude > 0.1f)
         {
             Quaternion targetRot = Quaternion.LookRotation(dir);
-            transform.rotation = Quaternion.Slerp(
-                transform.rotation,
-                targetRot,
-                10f * Time.fixedDeltaTime
-            );
+            transform.rotation = Quaternion.Slerp(transform.rotation,targetRot,rotateSpeed * Time.fixedDeltaTime);
         }
 
         if (jumpRequest && isGround)
