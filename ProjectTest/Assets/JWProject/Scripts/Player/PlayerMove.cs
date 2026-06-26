@@ -12,6 +12,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     [SerializeField] private Animator anim;
     [SerializeField] private PlayerInputHandler input;
+    
 
     private Rigidbody rb;
 
@@ -76,19 +77,6 @@ public class PlayerMove : MonoBehaviour
             acceleration * Time.fixedDeltaTime
         );
 
-        // 이동 방향으로 플레이어 회전
-        if (dir.magnitude > 0.1f)
-        {
-            Quaternion targetRot = Quaternion.LookRotation(dir);
-
-            Quaternion newRot = Quaternion.Slerp(
-                rb.rotation,
-                targetRot,
-                rotateSpeed * Time.fixedDeltaTime
-            );
-
-            rb.MoveRotation(newRot);
-        }
 
         if (jumpRequest && isGround)
         {

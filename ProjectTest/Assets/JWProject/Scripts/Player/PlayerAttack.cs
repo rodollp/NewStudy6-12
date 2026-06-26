@@ -14,6 +14,8 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private PlayerInputHandler input;
 
     [SerializeField]private LayerMask monsterLayer;
+    [SerializeField] private Transform visual;
+
 
     PlayerStatus playerStatus;
 
@@ -45,8 +47,8 @@ public class PlayerAttack : MonoBehaviour
     {
         anim.SetTrigger("Attack");
 
-        Vector3 start = transform.position + Vector3.up * 0.8f;
-        Vector3 end = start + transform.forward * attackDistance;
+        Vector3 start = visual.position + Vector3.up * 0.8f;
+        Vector3 end = start + visual.forward * attackDistance;
 
         Collider[] hits = Physics.OverlapCapsule(
             start,
@@ -106,8 +108,8 @@ public class PlayerAttack : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Vector3 start = transform.position + Vector3.up * 0.8f;
-        Vector3 end = start + transform.forward * attackDistance;
+        Vector3 start = visual.position + Vector3.up * 0.8f;
+        Vector3 end = start + visual.forward * attackDistance;
         Gizmos.color = Color.blue;
         Gizmos.DrawLine(start, end);
 

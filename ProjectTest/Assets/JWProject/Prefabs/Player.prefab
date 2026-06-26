@@ -51,6 +51,7 @@ GameObject:
   - component: {fileID: 5718571247285864117}
   - component: {fileID: 88124591205709551}
   - component: {fileID: 6978445225003120711}
+  - component: {fileID: 13450764416670748}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -152,7 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ffc9edfafbb5854f8a55ba41f6ceed2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDistance: 1.5
+  attackDistance: 1.94
   attackForce: 5
   radius: 1
   anim: {fileID: 8016305524645682383}
@@ -160,6 +161,7 @@ MonoBehaviour:
   monsterLayer:
     serializedVersion: 2
     m_Bits: 64
+  visual: {fileID: 6235064995479725673}
 --- !u!114 &689432631940140831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -257,6 +259,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2aebee20cebe96479d6cf25e27c13d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &13450764416670748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3319958711531730248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d151a2861a45b7143a0c9dfce6e38453, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerRotate
+  mainCamera: {fileID: 0}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  visual: {fileID: 6235064995479725673}
+  rotateSpeed: 12
 --- !u!1 &7628116755836911540
 GameObject:
   m_ObjectHideFlags: 0

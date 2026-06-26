@@ -119,6 +119,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!4 &151557536 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6235064995479725673, guid: d9013c3eefdbbb14db870c007fe4e6ef, type: 3}
+  m_PrefabInstance: {fileID: 7534548450698859847}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &180062085 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6739904211450367984, guid: d9013c3eefdbbb14db870c007fe4e6ef, type: 3}
@@ -1765,6 +1770,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 13450764416670748, guid: d9013c3eefdbbb14db870c007fe4e6ef, type: 3}
+      propertyPath: visual
+      value: 
+      objectReference: {fileID: 151557536}
+    - target: {fileID: 13450764416670748, guid: d9013c3eefdbbb14db870c007fe4e6ef, type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 330585545}
+    - target: {fileID: 13450764416670748, guid: d9013c3eefdbbb14db870c007fe4e6ef, type: 3}
+      propertyPath: groundLayer.m_Bits
+      value: 128
+      objectReference: {fileID: 0}
+    - target: {fileID: 88124591205709551, guid: d9013c3eefdbbb14db870c007fe4e6ef, type: 3}
+      propertyPath: m_Center.y
+      value: 1.13
+      objectReference: {fileID: 0}
     - target: {fileID: 403374760081511573, guid: d9013c3eefdbbb14db870c007fe4e6ef, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 4.9916997
@@ -1936,6 +1957,18 @@ PrefabInstance:
     - target: {fileID: 6739904211450367984, guid: d9013c3eefdbbb14db870c007fe4e6ef, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6873149268016293520, guid: d9013c3eefdbbb14db870c007fe4e6ef, type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
+    - target: {fileID: 6873149268016293520, guid: d9013c3eefdbbb14db870c007fe4e6ef, type: 3}
+      propertyPath: m_Interpolate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6873149268016293520, guid: d9013c3eefdbbb14db870c007fe4e6ef, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7648702040214867250, guid: d9013c3eefdbbb14db870c007fe4e6ef, type: 3}
       propertyPath: cameraTransform
