@@ -9,7 +9,7 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] TMP_Text hpText;
     [SerializeField] TMP_Text levelText;
     [SerializeField] TMP_Text expText;
-    [SerializeField] TMP_Text monsterHpText;
+    
 
     private void Update()
     {
