@@ -1813,6 +1813,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -1.0890852
       objectReference: {fileID: 0}
+    - target: {fileID: 2236141702065354884, guid: d9013c3eefdbbb14db870c007fe4e6ef, type: 3}
+      propertyPath: radius
+      value: 2.39
+      objectReference: {fileID: 0}
+    - target: {fileID: 2236141702065354884, guid: d9013c3eefdbbb14db870c007fe4e6ef, type: 3}
+      propertyPath: attackDistance
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2480204055432424523, guid: d9013c3eefdbbb14db870c007fe4e6ef, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 80.656494

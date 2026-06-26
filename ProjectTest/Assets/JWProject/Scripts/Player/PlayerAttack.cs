@@ -45,8 +45,8 @@ public class PlayerAttack : MonoBehaviour
     {
         anim.SetTrigger("Attack");
 
-        Vector3 start = transform.position;
-        Vector3 end = transform.position + transform.forward * attackDistance;
+        Vector3 start = transform.position + Vector3.up * 0.8f;
+        Vector3 end = start + transform.forward * attackDistance;
 
         Collider[] hits = Physics.OverlapCapsule(
             start,
@@ -106,9 +106,8 @@ public class PlayerAttack : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Vector3 start = transform.position;
-        Vector3 end = transform.position + transform.forward * attackDistance;
-
+        Vector3 start = transform.position + Vector3.up * 0.8f;
+        Vector3 end = start + transform.forward * attackDistance;
         Gizmos.color = Color.blue;
         Gizmos.DrawLine(start, end);
 

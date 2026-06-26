@@ -1,6 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.Windows;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -11,12 +9,10 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private float jumpForce;
     [SerializeField] private float checkLine = 0.1f;
 
-    [SerializeField] Transform groundCheck;
-    [SerializeField] Transform cameraTransform;
-    [SerializeField] Animator anim;
-
-
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private Animator anim;
     [SerializeField] private PlayerInputHandler input;
+
     private Rigidbody rb;
 
     private Vector2 inputVec;
@@ -27,8 +23,12 @@ public class PlayerMove : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        if (input == null ) input =GetComponent<PlayerInputHandler>();
-        if (anim == null) anim = GetComponentInChildren<Animator>();
+
+        if (input == null)
+            input = GetComponent<PlayerInputHandler>();
+
+        if (anim == null)
+            anim = GetComponentInChildren<Animator>();
     }
 
     private void Update()
@@ -56,44 +56,48 @@ public class PlayerMove : MonoBehaviour
             isGround ? Color.green : Color.red
         );
 
-        Vector3 forward = cameraTransform.forward;
-        Vector3 right = cameraTransform.right;
+        // 쿼터뷰 고정 카메라 기준: 월드 X/Z 방향 이동
+        Vector3 dir = new Vector3(inputVec.x, 0f, inputVec.y);
 
-        forward.y = 0;
-        right.y = 0;
-
-        forward.Normalize();
-        right.Normalize();
-
-        Vector3 dir = forward * inputVec.y + right * inputVec.x;
-
-        // 대각선 이동이 더 빨라지지 않게 막음
         if (dir.magnitude > 1f)
             dir.Normalize();
 
         float currentSpeed = isRun ? moveSpeed * runMultiplier : moveSpeed;
 
-        Vector3 targetVelocity = new Vector3(dir.x * currentSpeed,rb.linearVelocity.y,dir.z * currentSpeed);
+        Vector3 targetVelocity = new Vector3(
+            dir.x * currentSpeed,
+            rb.linearVelocity.y,
+            dir.z * currentSpeed
+        );
 
-        rb.linearVelocity = Vector3.Lerp(rb.linearVelocity,targetVelocity,acceleration* Time.fixedDeltaTime);
+        rb.linearVelocity = Vector3.Lerp(
+            rb.linearVelocity,
+            targetVelocity,
+            acceleration * Time.fixedDeltaTime
+        );
 
+        // 이동 방향으로 플레이어 회전
         if (dir.magnitude > 0.1f)
         {
             Quaternion targetRot = Quaternion.LookRotation(dir);
-            transform.rotation = Quaternion.Slerp(transform.rotation,targetRot,rotateSpeed * Time.fixedDeltaTime);
+
+            Quaternion newRot = Quaternion.Slerp(
+                rb.rotation,
+                targetRot,
+                rotateSpeed * Time.fixedDeltaTime
+            );
+
+            rb.MoveRotation(newRot);
         }
 
         if (jumpRequest && isGround)
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-
             anim.SetTrigger("Jump");
         }
 
         jumpRequest = false;
 
-        // Animator Speed 값
-        // 0 = Idle, 0.5 = Walk, 1 = Run
         float animSpeed = 0f;
 
         if (dir.magnitude > 0.1f)

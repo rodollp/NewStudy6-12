@@ -150,10 +150,10 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &2063014494176738630
 MonoBehaviour:
@@ -194,7 +194,7 @@ MonoBehaviour:
   agent: {fileID: 2552319880845345566}
   moveSpeed: 3
   sightAngle: 100
-  detectRange: 5
+  detectRange: 15
   attackRange: 2
 --- !u!195 &2552319880845345566
 NavMeshAgent:

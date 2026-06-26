@@ -27,6 +27,8 @@ public class MonsterAI : MonoBehaviour
     protected float attackTimer = 0f;
     protected float coolDown = 1f;
 
+    private bool isAggro = false;
+
     protected enum MonsterState
     {
         Idle,
@@ -52,10 +54,9 @@ public class MonsterAI : MonoBehaviour
 
         if (agent != null)
         {
-            // 기존 moveSpeed를 NavMeshAgent에 적용
             agent.speed = moveSpeed;
 
-            // 회전은 LookPlayer()가 담당
+            // Chase 회전은 NavMeshAgent가 담당
             agent.updateRotation = true;
         }
     }
@@ -83,6 +84,9 @@ public class MonsterAI : MonoBehaviour
 
     protected virtual bool CanSeePlayer()
     {
+        if (eyePoint == null)
+            return false;
+
         Vector3 toPlayer = (player.position - eyePoint.position).normalized;
 
         float distance = (player.position - transform.position).sqrMagnitude;
@@ -116,61 +120,60 @@ public class MonsterAI : MonoBehaviour
         agent.SetDestination(player.position);
     }
 
-  
+    protected virtual void StopAgent()
+    {
+        if (agent == null)
+            return;
+
+        if (!agent.isOnNavMesh)
+            return;
+
+        agent.isStopped = true;
+        agent.ResetPath();
+    }
 
     protected virtual void Idle()
     {
-        if (agent != null)
-            agent.isStopped = true;
+        StopAgent();
 
-        if (CanSeePlayer())
+        if (CanSeePlayer() || isAggro)
         {
             currentState = MonsterState.Chase;
         }
     }
-
     protected virtual void Chase()
     {
-        
+        // 인식 범위 밖으로 나가면 추적 종료
+        if (!IsInDetectRange())
+        {
+            isAggro = false;
+            StopAgent();
+            currentState = MonsterState.Idle;
+            return;
+        }
 
         if (IsInAttackRange())
         {
-            if (agent != null)
-            {
-                agent.isStopped = true;
-                agent.ResetPath();
-            }
-
+            StopAgent();
             currentState = MonsterState.Attack;
             return;
         }
 
         MoveToPlayer();
-
-        if (!CanSeePlayer())
-        {
-            if (agent != null)
-            {
-                agent.isStopped = true;
-                agent.ResetPath();
-            }
-
-            currentState = MonsterState.Idle;
-        }
     }
+    protected virtual bool IsInDetectRange()
+    {
+        float distance = (player.position - transform.position).sqrMagnitude;
 
+        return distance <= detectRange * detectRange;
+    }
     protected virtual void Attack()
     {
-        if (agent != null)
-        {
-            agent.isStopped = true;
-            agent.ResetPath();
-        }
+        StopAgent();
 
         MonsterAttack();
 
         float exitAttackRange = attackRange + 1f;
-
         float distance = (player.position - transform.position).sqrMagnitude;
 
         if (distance > exitAttackRange * exitAttackRange)
@@ -191,7 +194,7 @@ public class MonsterAI : MonoBehaviour
 
             PlayerStatus playerStatus = player.GetComponent<PlayerStatus>();
 
-            if (playerStatus != null)
+            if (playerStatus != null && status != null)
             {
                 playerStatus.TakeDamage(status.Atk);
             }
@@ -200,6 +203,7 @@ public class MonsterAI : MonoBehaviour
 
     public virtual void OnHit()
     {
+        isAggro = true;
         currentState = MonsterState.Chase;
     }
 
