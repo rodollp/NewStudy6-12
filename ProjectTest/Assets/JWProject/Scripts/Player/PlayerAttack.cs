@@ -12,6 +12,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] Animator anim;
     [SerializeField] private PlayerInputHandler input;
 
+    [SerializeField]private LayerMask monsterLayer;
 
     PlayerStatus playerStatus;
 
@@ -44,17 +45,30 @@ public class PlayerAttack : MonoBehaviour
 
         anim.SetTrigger("Attack");
         //플레이어 위치에서 반지름 radius 만큼의 구로 attackDistance만큼의 거리상 플레이어 정면에 있는것이 없으면 리턴
-        if (!Physics.SphereCast(transform.position, radius, transform.forward, out RaycastHit hit, attackDistance))
+        if (!Physics.SphereCast(transform.position, radius, transform.forward, out RaycastHit hit, attackDistance,monsterLayer))
             return;
 
         //맞았으면 이놈이 몬스터스테이터스를 가지고 있는지
-        Monster monster = hit.transform.GetComponent<Monster>();
+        Debug.Log("공격에 맞은 오브젝트 : " + hit.collider.name);
+
+        Monster monster = hit.collider.GetComponentInParent<Monster>();
 
         if (monster == null)
+        {
+            Debug.Log("Monster 컴포넌트를 찾지 못함");
             return;
+        }
+
         monster.TakeDamage(playerStatus.Atk);
 
-        Rigidbody rb = hit.transform.GetComponent<Rigidbody>();
+        MonsterAI monsterAI = monster.GetComponent<MonsterAI>();
+
+        if (monsterAI != null)
+        {
+            monsterAI.OnHit();
+        }
+
+        Rigidbody rb = monster.GetComponent<Rigidbody>();
 
         KnockBack(rb);
     }

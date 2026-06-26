@@ -158,8 +158,11 @@ MonoBehaviour:
   attackDistance: 1.5
   attackForce: 5
   radius: 1
-  anim: {fileID: 0}
+  anim: {fileID: 8016305524645682383}
   input: {fileID: 6978445225003120711}
+  monsterLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!114 &689432631940140831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,7 +223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d5d8fbdc876bcc4aa65357941b65442, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  input: {fileID: 0}
+  input: {fileID: 6978445225003120711}
   inventory: {fileID: 4240671405192901755}
 --- !u!136 &88124591205709551
 CapsuleCollider:
