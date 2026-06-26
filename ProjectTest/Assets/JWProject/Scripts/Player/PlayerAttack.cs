@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -42,35 +43,48 @@ public class PlayerAttack : MonoBehaviour
 
     private void CommonAttack()
     {
-
         anim.SetTrigger("Attack");
-        //플레이어 위치에서 반지름 radius 만큼의 구로 attackDistance만큼의 거리상 플레이어 정면에 있는것이 없으면 리턴
-        if (!Physics.SphereCast(transform.position, radius, transform.forward, out RaycastHit hit, attackDistance,monsterLayer))
-            return;
 
-        //맞았으면 이놈이 몬스터스테이터스를 가지고 있는지
-        Debug.Log("공격에 맞은 오브젝트 : " + hit.collider.name);
+        Vector3 start = transform.position;
+        Vector3 end = transform.position + transform.forward * attackDistance;
 
-        Monster monster = hit.collider.GetComponentInParent<Monster>();
+        Collider[] hits = Physics.OverlapCapsule(
+            start,
+            end,
+            radius,
+            monsterLayer
+        );
 
-        if (monster == null)
+        Debug.Log("공격 범위 안 콜라이더 수 : " + hits.Length);
+
+        HashSet<Monster> damagedMonsters = new HashSet<Monster>();
+
+        foreach (Collider hit in hits)
         {
-            Debug.Log("Monster 컴포넌트를 찾지 못함");
-            return;
+            Monster monster = hit.GetComponentInParent<Monster>();
+
+            if (monster == null)
+                continue;
+
+            // Body, Head 둘 다 맞아서 중복 데미지 들어가는 것 방지
+            if (damagedMonsters.Contains(monster))
+                continue;
+
+            damagedMonsters.Add(monster);
+
+            monster.TakeDamage(playerStatus.Atk);
+
+            MonsterAI monsterAI = monster.GetComponentInParent<MonsterAI>();
+
+            if (monsterAI != null)
+            {
+                monsterAI.OnHit();
+            }
+
+            // NavMeshAgent 쓰는 중이면 일단 넉백은 잠깐 끄고 테스트 추천
+            // Rigidbody rb = monster.GetComponentInParent<Rigidbody>();
+            // KnockBack(rb);
         }
-
-        monster.TakeDamage(playerStatus.Atk);
-
-        MonsterAI monsterAI = monster.GetComponent<MonsterAI>();
-
-        if (monsterAI != null)
-        {
-            monsterAI.OnHit();
-        }
-
-        Rigidbody rb = monster.GetComponent<Rigidbody>();
-
-        KnockBack(rb);
     }
 
     private void KnockBack(Rigidbody rb)
@@ -92,19 +106,14 @@ public class PlayerAttack : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        // 플레이어 정면
+        Vector3 start = transform.position;
+        Vector3 end = transform.position + transform.forward * attackDistance;
+
         Gizmos.color = Color.blue;
-        Gizmos.DrawLine(transform.position, transform.position + transform.forward * 3f);
+        Gizmos.DrawLine(start, end);
 
-        // SphereCast 범위
         Gizmos.color = Color.red;
-
-        Vector3 endPos = transform.position + transform.forward * attackDistance;
-
-        Gizmos.DrawWireSphere(transform.position, radius);
-
-        Gizmos.DrawWireSphere(endPos, radius);
-
-        Gizmos.DrawLine(transform.position, endPos);
+        Gizmos.DrawWireSphere(start, radius);
+        Gizmos.DrawWireSphere(end, radius);
     }
 }

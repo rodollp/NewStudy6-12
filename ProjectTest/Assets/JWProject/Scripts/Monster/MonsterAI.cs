@@ -56,7 +56,7 @@ public class MonsterAI : MonoBehaviour
             agent.speed = moveSpeed;
 
             // 회전은 LookPlayer()가 담당
-            agent.updateRotation = false;
+            agent.updateRotation = true;
         }
     }
 
@@ -116,23 +116,7 @@ public class MonsterAI : MonoBehaviour
         agent.SetDestination(player.position);
     }
 
-    protected virtual void LookPlayer()
-    {
-        Vector3 dir = player.position - transform.position;
-
-        dir.y = 0;
-
-        if (dir == Vector3.zero)
-            return;
-
-        Quaternion targetRot = Quaternion.LookRotation(dir);
-
-        transform.rotation =
-            Quaternion.Slerp(
-                transform.rotation,
-                targetRot,
-                5f * Time.deltaTime);
-    }
+  
 
     protected virtual void Idle()
     {
@@ -147,7 +131,7 @@ public class MonsterAI : MonoBehaviour
 
     protected virtual void Chase()
     {
-        LookPlayer();
+        
 
         if (IsInAttackRange())
         {
@@ -182,8 +166,6 @@ public class MonsterAI : MonoBehaviour
             agent.isStopped = true;
             agent.ResetPath();
         }
-
-        LookPlayer();
 
         MonsterAttack();
 
